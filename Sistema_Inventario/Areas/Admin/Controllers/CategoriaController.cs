@@ -6,10 +6,10 @@ using SistemaInventario.Utilidades;
 namespace Sistema_Inventario.Areas.Admin.Controllers
 {
     [Area("Admin")] //Le decimos a que Area pertecene
-    public class BodegaController : Controller
+    public class CategoriaController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;
-        public BodegaController(IUnidadTrabajo unidadTrabajo)
+        public CategoriaController(IUnidadTrabajo unidadTrabajo)
         {
             _unidadTrabajo= unidadTrabajo;
         }
@@ -20,62 +20,62 @@ namespace Sistema_Inventario.Areas.Admin.Controllers
 
         public async Task<IActionResult>Upsert(int? id)
         {
-            Bodega bodega=new Bodega();
+            Categoria categoria=new Categoria();
             if (id == null)
             {
-                //Crear nueva bodega
-                bodega.Estado = true;
-                return View(bodega);
+                //Crear nueva categoria
+                categoria.Estado = true;
+                return View(categoria);
             }
-            bodega = await _unidadTrabajo.Bodega.obtener(id.GetValueOrDefault()); //Nos aseguramos que la información llegue correctamente
-            if (bodega == null)
+            categoria = await _unidadTrabajo.Categoria.obtener(id.GetValueOrDefault()); //Nos aseguramos que la información llegue correctamente
+            if (categoria == null)
             {
                 return NotFound();
             }
-            return View(bodega);
+            return View(categoria);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken] //Evita que se pueda clonar 
-        public async Task<IActionResult>Upsert(Bodega bodega)
+        public async Task<IActionResult>Upsert(Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                if (bodega.Id == 0)
+                if (categoria.Id == 0)
                 {
-                    await _unidadTrabajo.Bodega.Agregar(bodega);
-                    TempData[DS.Exitosa] = "Bodega creada exitósamente";
+                    await _unidadTrabajo.Categoria.Agregar(categoria);
+                    TempData[DS.Exitosa] = "Categoria creada exitósamente";
                 }
                 else
                 {
-                    _unidadTrabajo.Bodega.Actualizar(bodega);
-					TempData[DS.Exitosa] = "Bodega actualizada exitósamente";
+                    _unidadTrabajo.Categoria.Actualizar(categoria);
+					TempData[DS.Exitosa] = "Categoria actualizada exitósamente";
 				}
                 await _unidadTrabajo.Guardar();
                 return RedirectToAction(nameof(Index));
             }
-            TempData[DS.Error] = "Error al guardar la bodega";
-            return View(bodega);
+            TempData[DS.Error] = "Error al guardar la categoria";
+            return View(categoria);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var bodegaDB = await _unidadTrabajo.Bodega.obtener(id);
-            if (bodegaDB == null)
+            var categoriaDB = await _unidadTrabajo.Categoria.obtener(id);
+            if (categoriaDB == null)
             {
-                return Json(new { success = false, message = "Error al borrar Bodega." });
+                return Json(new { success = false, message = "Error al borrar Categoria." });
             }
-            _unidadTrabajo.Bodega.Remover(bodegaDB);
+            _unidadTrabajo.Categoria.Remover(categoriaDB);
             await _unidadTrabajo.Guardar();
-            return Json(new { success = true, message = "Bodega borrada exitósamente." });
+            return Json(new { success = true, message = "Categoria borrada exitósamente." });
         }
 
         #region API
         [HttpGet]
         public async Task<IActionResult> obtenerTodos()
         {
-            var todos=await _unidadTrabajo.Bodega.ObtenerTodos();
+            var todos=await _unidadTrabajo.Categoria.ObtenerTodos();
             return Json(new {data=todos});  //data es el nombre que tiene que tener la tabla por defecto para crear el JSON
         }
 
@@ -83,7 +83,7 @@ namespace Sistema_Inventario.Areas.Admin.Controllers
         public async Task<IActionResult>ValidarNombre(string nombre,int id = 0)
         {
             bool valor=false;
-            var lista = await _unidadTrabajo.Bodega.ObtenerTodos();
+            var lista = await _unidadTrabajo.Categoria.ObtenerTodos();
             if (id == 0)
             {
                 valor=lista.Any(b=>b.Nombre.ToLower().Trim()==nombre.ToLower().Trim());

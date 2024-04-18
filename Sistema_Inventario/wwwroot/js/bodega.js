@@ -6,7 +6,7 @@ $(document).ready(function () {
 function loadDataTable() {
     datatable = $('#tblDatos').DataTable({
         //Seccion de ajax para el´pluggin
-        "ajax": { "url": "/Admin/Categoria/obtenerTodos" },
+        "ajax": { "url": "/Admin/Bodega/obtenerTodos" },
         "columns": [
             { "data": "nombre", "width": "20%" },
             { "data": "descripcion", "width": "40%" },
@@ -26,10 +26,10 @@ function loadDataTable() {
                 "render": function (data) {  //Alt + 96 para estos simbolos
                     return ` 
                         <div class="text-center">
-                            <a href="/Admin/Categoria/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                            <a href="/Admin/Bodega/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a onclick=Delete("/Admin/Categoria/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                            <a onclick=Delete("/Admin/Bodega/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                             <i class="bi bi-trash"></i>
                             </a>
                         </div>
@@ -52,7 +52,7 @@ function loadDataTable() {
 
 function Delete(url) {
     swal({
-        title: "¿Estás seguro de eliminar la Categoria?",
+        title: "¿Estás seguro de eliminar la Bodega?",
         text: "Este registro no será recuperado",
         icon: "warning",
         buttons: true,
