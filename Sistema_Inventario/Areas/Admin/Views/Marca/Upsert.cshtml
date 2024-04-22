@@ -6,7 +6,7 @@
 }
 
 <!--Crear el formulario para envío de información-->
-<form method="post">
+<form method="post" onkeypress="if(event.keyCode==13)event.returnValue=false;"> <!--El onkeypress sirve para que la tecla no se active dejandolo en false-->
     <div style="padding-left:15%;padding-right:15%;padding-bottom:inherit.4rem;">
         <div class="row border-0">
             <div asp-validation-summary="ModelOnly" class="text-danger">
@@ -69,15 +69,14 @@
 {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
-
-        //Verificar tecla Enter (deshabilitar) 
+        /*
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelector("form").addEventListener("keydown", function (e) {
                 if (e.key === "Enter") {
                     e.preventDefault();
                 }
             });
-        });
+        });*/
 
         document.getElementById("nombre").addEventListener('change', function () {
             ValidarNombre();
