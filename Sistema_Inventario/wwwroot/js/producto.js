@@ -8,10 +8,10 @@ function loadDataTable() {
         //Seccion de ajax para el´pluggin
         "ajax": { "url": "/Admin/Producto/obtenerTodos" },
         "columns": [
-            { "data": "numeroserie",},
-            { "data": "descripcion", },
-            { "data": "categoria.nombre", },
-            { "data": "marca.nombre", },
+            { "data": "numeroSerie" },
+            { "data": "descripcion" },
+            { "data": "categoria.nombre" },
+            { "data": "marca.nombre" },
             {
                 "data": "precio", "className": "text-end",
                 "render": function (data) {
@@ -28,19 +28,19 @@ function loadDataTable() {
                     else {
                         return "Inactivo";
                     }
-                }, "width": "20%"
+                }
             },
             {
                 "data": "id",
-                "render": function (data) {  //Alt + 96 para estos simbolos
-                    return ` 
+                "render": function (data) {
+                    return `
                         <div class="text-center">
-                            <a href="/Admin/Producto/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a onclick=Delete("/Admin/Producto/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
-                            <i class="bi bi-trash"></i>
-                            </a>
+                           <a href="/Admin/Producto/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                              <i class="bi bi-pencil-square"></i>  
+                           </a>
+                           <a onclick=Delete("/Admin/Producto/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <i class="bi bi-trash3-fill"></i>
+                           </a> 
                         </div>
                     `;
                 }, "width": "20%"

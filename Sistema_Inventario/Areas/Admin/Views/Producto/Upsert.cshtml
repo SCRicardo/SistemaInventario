@@ -87,6 +87,15 @@
                             <span asp-validation-for="Producto.MarcaId" class="text-danger"></span>
                         </div>
                     </div>
+                    <!--Lista padre-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Producto</label>
+                            <select asp-for="Producto.PadreId" asp-items="@Model.PadreLista" class="form-select">
+                                <option disabled selected>--Elige un padre--</option>
+                            </select>
+                        </div>
+                    </div>
                     <!--Campo estado-->
                     <div class="row">
                         <div class="col-md-6">
