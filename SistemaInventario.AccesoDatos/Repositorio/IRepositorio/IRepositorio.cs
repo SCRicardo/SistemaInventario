@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaInventario.Modelos.Especificaciones;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,6 +17,12 @@ namespace SistemaInventario.AccesoDatos.Repositorio.IRepositorio
             Func<IQueryable<T>,IOrderedQueryable<T>>orderBy=null, //Sirve para Ordenar
             string incluirPropiedades=null,
             bool isTracking=true  //Sirve para reservar un pequeño espacio en memoria 
+            );
+        PagesList<T> ObtenerTodosPaginado(Parametros parametros,
+            Expression<Func<T, bool>> filtro = null, //Sirve para ver si viene o no informacion
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, //Sirve para Ordenar
+            string incluirPropiedades = null,
+            bool isTracking = true  //Sirve para reservar un pequeño espacio en memoria }
             );
 
         Task<T> obtenerPrimero(
